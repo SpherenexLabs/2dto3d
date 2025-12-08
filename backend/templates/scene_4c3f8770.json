@@ -1,0 +1,90 @@
+{
+  "scene_id": "4c3f8770",
+  "template_id": "living_room_modern",
+  "template_name": "Modern Living Room",
+  "objects": {
+    "chair1": {
+      "model": "chair_modern.glb",
+      "position": [
+        -4,
+        0,
+        0
+      ]
+    },
+    "chair2": {
+      "model": "chair_modern.glb",
+      "position": [
+        4,
+        0,
+        0
+      ]
+    },
+    "light1": {
+      "model": "light_modern.glb",
+      "position": [
+        0,
+        2.8,
+        0
+      ]
+    },
+    "light2": {
+      "model": "light_floor.glb",
+      "position": [
+        -3,
+        2.5,
+        -2
+      ]
+    },
+    "rug": {
+      "model": "rug_modern.glb",
+      "position": [
+        0,
+        0.01,
+        -1
+      ]
+    },
+    "sofa1": {
+      "model": "sofa_modern.glb",
+      "position": [
+        -2,
+        0,
+        -3
+      ]
+    },
+    "sofa2": {
+      "model": "sofa_modern.glb",
+      "position": [
+        2,
+        0,
+        -1
+      ]
+    },
+    "table2": {
+      "model": "models/chairs/chair_dining.glb",
+      "position": [
+        -0.7999999999999987,
+        0,
+        2.8000000000000007
+      ]
+    },
+    "chair3": {
+      "position": [
+        -1.1137363528333215,
+        0,
+        -1.6646847116015113
+      ],
+      "model": "models/chairs/chair_dining.glb",
+      "scale": 1
+    }
+  },
+  "camera": {},
+  "lighting": {},
+  "metadata": {
+    "created_at": "2025-11-22T15:30:48.253596",
+    "updated_at": "2025-11-22T15:30:48.253596",
+    "version": "1.0",
+    "description": "",
+    "tags": []
+  },
+  "share_url": "/scene/4c3f8770"
+}
