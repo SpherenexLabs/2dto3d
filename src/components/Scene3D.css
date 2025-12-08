@@ -1,0 +1,148 @@
+.scene3d-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.scene3d-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scene3d-header h2 {
+  margin: 0;
+  color: #1a1a1a;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.scene3d-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.control-btn {
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4a5568;
+}
+
+.control-btn:hover {
+  background: #edf2f7;
+  border-color: #cbd5e0;
+  transform: scale(1.05);
+}
+
+.control-btn.active {
+  background: #4299e1;
+  border-color: #3182ce;
+  color: white;
+}
+
+.canvas-wrapper {
+  flex: 1;
+  position: relative;
+  min-height: 400px;
+  background: linear-gradient(to bottom, #87ceeb 0%, #e0f6ff 100%);
+}
+
+.canvas-wrapper canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.scene3d-info {
+  padding: 1rem 2rem;
+  border-top: 1px solid #e2e8f0;
+  background: #f7fafc;
+}
+
+.info-text {
+  margin: 0;
+  color: #4a5568;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* Loading state */
+.scene3d-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #4a5568;
+  gap: 1rem;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #4299e1;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Tablet responsive */
+@media (max-width: 1024px) {
+  .scene3d-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .scene3d-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .canvas-wrapper {
+    min-height: 350px;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .scene3d-header {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .scene3d-controls {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .canvas-wrapper {
+    min-height: 300px;
+  }
+
+  .scene3d-info {
+    padding: 0.75rem 1rem;
+  }
+
+  .info-text {
+    font-size: 0.875rem;
+  }
+}

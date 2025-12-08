@@ -1,0 +1,401 @@
+.loading-animation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.loading-animation-container {
+  max-width: 600px;
+  width: 90%;
+  padding: 3rem;
+}
+
+.animation-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+/* Transformation Visual */
+.transformation-visual {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shape-2d {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 3px solid #4299e1;
+  background: rgba(66, 153, 225, 0.1);
+  transition: all 0.5s ease;
+}
+
+.shape-2d.fade-out {
+  opacity: 0;
+  transform: scale(0.5) rotate(45deg);
+}
+
+.grid-lines {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.grid-line {
+  position: absolute;
+  background: rgba(66, 153, 225, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.grid-line.horizontal {
+  width: 100%;
+  height: 1px;
+}
+
+.grid-line.vertical {
+  width: 1px;
+  height: 100%;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* 3D Cube */
+.shape-3d {
+  position: absolute;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.8s ease;
+}
+
+.shape-3d.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cube {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotateCube 4s infinite linear;
+}
+
+@keyframes rotateCube {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
+.cube-face {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: rgba(66, 153, 225, 0.3);
+  border: 2px solid #4299e1;
+  box-shadow: inset 0 0 30px rgba(66, 153, 225, 0.5);
+}
+
+.cube-face.front {
+  transform: translateZ(75px);
+}
+
+.cube-face.back {
+  transform: rotateY(180deg) translateZ(75px);
+}
+
+.cube-face.right {
+  transform: rotateY(90deg) translateZ(75px);
+}
+
+.cube-face.left {
+  transform: rotateY(-90deg) translateZ(75px);
+}
+
+.cube-face.top {
+  transform: rotateX(90deg) translateZ(75px);
+}
+
+.cube-face.bottom {
+  transform: rotateX(-90deg) translateZ(75px);
+}
+
+/* Particles */
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #4299e1;
+  border-radius: 50%;
+  animation: float linear infinite;
+  box-shadow: 0 0 10px #4299e1;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-300px) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Progress Info */
+.progress-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  color: white;
+}
+
+.progress-info h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stage-label {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #cbd5e0;
+  animation: fadeInOut 0.5s ease;
+}
+
+@keyframes fadeInOut {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Progress Bar */
+.progress-bar-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+  background-size: 200% 100%;
+  border-radius: 20px;
+  transition: width 0.3s ease;
+  position: relative;
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.progress-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shine 2s linear infinite;
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.progress-percentage {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #4299e1;
+  min-width: 60px;
+  text-align: right;
+}
+
+/* Stage Indicators */
+.stage-indicators {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.stage-indicator {
+  position: relative;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.stage-indicator.active .indicator-dot {
+  background: #4299e1;
+  box-shadow: 0 0 15px #4299e1;
+  animation: pulse-dot 1s ease-in-out infinite;
+}
+
+.stage-indicator.completed .indicator-dot {
+  background: #48bb78;
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+}
+
+/* Tablet responsive */
+@media (max-width: 1024px) {
+  .loading-animation-container {
+    padding: 2rem;
+  }
+
+  .transformation-visual {
+    width: 250px;
+    height: 250px;
+  }
+
+  .shape-2d {
+    width: 180px;
+    height: 180px;
+  }
+
+  .cube {
+    width: 120px;
+    height: 120px;
+  }
+
+  .cube-face {
+    width: 120px;
+    height: 120px;
+  }
+
+  .progress-info h2 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .loading-animation-container {
+    padding: 1.5rem;
+  }
+
+  .animation-content {
+    gap: 2rem;
+  }
+
+  .transformation-visual {
+    width: 200px;
+    height: 200px;
+  }
+
+  .shape-2d {
+    width: 150px;
+    height: 150px;
+  }
+
+  .cube {
+    width: 100px;
+    height: 100px;
+  }
+
+  .cube-face {
+    width: 100px;
+    height: 100px;
+  }
+
+  .progress-info h2 {
+    font-size: 1.5rem;
+  }
+
+  .stage-label {
+    font-size: 1rem;
+  }
+
+  .progress-percentage {
+    font-size: 1.1rem;
+  }
+}

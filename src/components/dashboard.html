@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Attractive Electrical Dashboard</title>
+<style>
+  :root{
+    --bg1:#0b1220;
+    --bg2:#121a2b;
+    --glass:#0f172a99;        /* translucent card */
+    --border:#ffffff14;
+    --text:#e5e7eb;
+    --muted:#a3aab8;
+    --grid:#1e2a44;
+    --current:#60a5fa;
+    --voltage:#34d399;
+    --load:#f472b6;
+    --accent:#22d3ee;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; color:var(--text);
+    font-family:Inter, ui-sans-serif, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
+    background:
+      radial-gradient(1200px 800px at 20% -10%, #1f2a48 0%, #0b1220 50%, #080d18 100%),
+      linear-gradient(135deg, var(--bg1), var(--bg2));
+    min-height:100dvh;
+  }
+
+  header{
+    padding:22px 20px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:12px;
+  }
+  .brand .logo{
+    width:36px; height:36px; border-radius:12px;
+    background:linear-gradient(135deg, #22d3ee, #38bdf8, #818cf8);
+    box-shadow:0 8px 20px #22d3ee44, inset 0 1px 6px #ffffff55;
+  }
+  h1{margin:0; font-size:18px; letter-spacing:.3px}
+  .pill{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 12px; color:var(--muted);
+    border:1px solid var(--border);
+    border-radius:999px;
+    background:linear-gradient(180deg, #ffffff12, #ffffff05);
+    backdrop-filter: blur(10px);
+  }
+  .dot{width:10px; height:10px; border-radius:999px}
+
+  /* Layout grid */
+  .grid{
+    display:grid; gap:16px; padding:0 16px 24px;
+    grid-template-columns: repeat(12, 1fr);
+  }
+  .card{
+    background: var(--glass);
+    border:1px solid var(--border);
+    border-radius:16px;
+    backdrop-filter: blur(14px) saturate(120%);
+    box-shadow:
+      0 20px 40px #00000066,
+      inset 0 1px 0 #ffffff1a;
+    overflow:hidden;
+  }
+  .card:hover{
+    box-shadow:
+      0 28px 60px #00000080,
+      inset 0 1px 0 #ffffff24;
+    transform: translateY(-1px);
+    transition: all .25s ease;
+  }
+
+  /* KPI cards */
+  .kpi-wrap{ grid-column: span 12; display:grid; gap:16px; grid-template-columns: repeat(12, 1fr);}
+  .kpi-card{ grid-column: span 4; padding:18px; display:flex; align-items:center; gap:14px;}
+  .kpi-meta{ flex:1 1 auto; }
+  .kpi-title{ margin:0; color:var(--muted); font-size:12px; letter-spacing:.4px; text-transform:uppercase}
+  .kpi-value{ margin:6px 0 0; font-size:30px; font-weight:700; display:flex; align-items:baseline; gap:8px;}
+  .kpi-unit{ color:var(--muted); font-size:12px;}
+  .trend{
+    font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--border);
+    background:#ffffff08; color:var(--text);
+  }
+  .ok{ color:#10b981 } .warn{ color:#f59e0b } .bad{ color:#ef4444 }
+
+  /* Section headers */
+  .panel{ padding:16px 16px 0; }
+  .panel h3{ margin:0; font-size:14px; color:var(--muted); letter-spacing:.3px; font-weight:600;}
+
+  /* Chart cards */
+  .chart-card{ grid-column: span 4; display:flex; flex-direction:column; }
+  .chart-wrap{
+    margin:12px 16px 16px; position:relative; height:240px; border-radius:12px; overflow:hidden;
+    background:
+      linear-gradient(#0000 23px, var(--grid) 24px, #0000 25px) 0 0/100% 48px,
+      linear-gradient(90deg, #0000 23px, var(--grid) 24px, #0000 25px) 0 0/60px 100%,
+      linear-gradient(180deg, #ffffff0b, #ffffff00);
+    border:1px solid var(--border);
+  }
+  canvas{ width:100%; height:100%; display:block; }
+
+  @media (max-width: 1024px){
+    .kpi-card{ grid-column: span 12; }
+    .chart-card{ grid-column: span 12; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo"></div>
+      <h1>Electrical Dashboard</h1>
+    </div>
+    <div class="pill"><span class="dot" style="background: var(--accent)"></span>Live update: 1s</div>
+  </header>
+
+  <main class="grid">
+    <!-- KPI Row -->
+    <section class="kpi-wrap">
+      <article class="card kpi-card">
+        <span class="dot" style="background: var(--current)"></span>
+        <div class="kpi-meta">
+          <p class="kpi-title">Current</p>
+          <div class="kpi-value"><span id="currentVal">10.0</span><span class="kpi-unit">A</span></div>
+        </div>
+        <div class="trend" id="currentTrend">+0.0</div>
+      </article>
+
+      <article class="card kpi-card">
+        <span class="dot" style="background: var(--voltage)"></span>
+        <div class="kpi-meta">
+          <p class="kpi-title">Voltage</p>
+          <div class="kpi-value"><span id="voltageVal">220.0</span><span class="kpi-unit">V</span></div>
+        </div>
+        <div class="trend" id="voltageTrend">+0.0</div>
+      </article>
+
+      <article class="card kpi-card">
+        <span class="dot" style="background: var(--load)"></span>
+        <div class="kpi-meta">
+          <p class="kpi-title">Load</p>
+          <div class="kpi-value"><span id="loadVal">1.5</span><span class="kpi-unit">kW</span></div>
+        </div>
+        <div class="trend" id="loadTrend">+0.0</div>
+      </article>
+    </section>
+
+    <!-- Separate Graphs -->
+    <section class="card chart-card">
+      <div class="panel"><h3>Current (A)</h3></div>
+      <div class="chart-wrap"><canvas id="chartCurrent"></canvas></div>
+    </section>
+
+    <section class="card chart-card">
+      <div class="panel"><h3>Voltage (V)</h3></div>
+      <div class="chart-wrap"><canvas id="chartVoltage"></canvas></div>
+    </section>
+
+    <section class="card chart-card">
+      <div class="panel"><h3>Load (kW)</h3></div>
+      <div class="chart-wrap"><canvas id="chartLoad"></canvas></div>
+    </section>
+  </main>
+
+<script>
+(function(){
+  // Settings
+  const HISTORY = 120;       // points
+  const INTERVAL = 1000;     // 1s
+  const STEP = 1;            // ±1 unit per tick
+
+  // Initial values
+  let current = 10.0;    // A
+  let voltage = 220.0;   // V
+  let load    = 1.5;     // kW
+
+  // Bounds for normalization
+  const bounds = {
+    current:[0, 32],
+    voltage:[180, 250],
+    load:[0, 5]
+  };
+
+  // Histories
+  const hist = {
+    current: Array(HISTORY).fill(current),
+    voltage: Array(HISTORY).fill(voltage),
+    load:    Array(HISTORY).fill(load)
+  };
+
+  // DOM elements
+  const el = {
+    currentVal:   document.getElementById('currentVal'),
+    voltageVal:   document.getElementById('voltageVal'),
+    loadVal:      document.getElementById('loadVal'),
+    currentTrend: document.getElementById('currentTrend'),
+    voltageTrend: document.getElementById('voltageTrend'),
+    loadTrend:    document.getElementById('loadTrend'),
+    canvasCurrent:document.getElementById('chartCurrent'),
+    canvasVoltage:document.getElementById('chartVoltage'),
+    canvasLoad:   document.getElementById('chartLoad')
+  };
+
+  const ctx = {
+    current: el.canvasCurrent.getContext('2d'),
+    voltage: el.canvasVoltage.getContext('2d'),
+    load:    el.canvasLoad.getContext('2d')
+  };
+
+  // Resize handling for crisp lines
+  function resizeCanvas(cvs){
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    const r = cvs.getBoundingClientRect();
+    cvs.width = Math.floor(r.width * dpr);
+    cvs.height = Math.floor(r.height * dpr);
+    const c = cvs.getContext('2d');
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function resizeAll(){
+    [el.canvasCurrent, el.canvasVoltage, el.canvasLoad].forEach(resizeCanvas);
+  }
+  window.addEventListener('resize', resizeAll, { passive:true });
+  resizeAll();
+
+  // Helpers
+  const clamp = (v,[lo,hi]) => Math.max(lo, Math.min(hi, v));
+  const stepRand = () => (Math.random()*2 - 1) * STEP;
+  const fmt = v => v.toFixed(1);
+  function setTrend(el, d){
+    const sign = d >= 0 ? '+' : '';
+    el.textContent = sign + d.toFixed(1);
+    el.classList.remove('ok','warn','bad');
+    const m = Math.abs(d);
+    if (m < 0.35) el.classList.add('ok');
+    else if (m < 0.75) el.classList.add('warn');
+    else el.classList.add('bad');
+  }
+
+  function updateOne(key){
+    const prev = {current, voltage, load}[key];
+    let next = prev + stepRand();
+    next = clamp(next, bounds[key]);
+    if (key==='current') current = next;
+    if (key==='voltage') voltage = next;
+    if (key==='load')    load = next;
+    const arr = hist[key];
+    arr.push(next);
+    if (arr.length > HISTORY) arr.shift();
+    return next - prev;
+  }
+
+  function drawLine(c, key, color){
+    const cvs = c.canvas;
+    const r = cvs.getBoundingClientRect();
+    const w = r.width, h = r.height;
+
+    c.clearRect(0,0,w,h);
+
+    const pad = 14;
+    const plotW = w - pad*2;
+    const plotH = h - pad*2;
+    const arr = hist[key];
+    const [lo, hi] = bounds[key];
+
+    const n = arr.length;
+    const stepX = plotW / Math.max(1, n-1);
+
+    // Soft shadow under line
+    c.lineWidth = 2;
+    c.strokeStyle = color;
+    c.beginPath();
+    arr.forEach((v,i)=>{
+      const t = (v - lo)/Math.max(1e-6, hi - lo);
+      const x = pad + i*stepX;
+      const y = pad + (1 - t)*plotH;
+      if (i===0) c.moveTo(x,y);
+      else c.lineTo(x,y);
+    });
+    c.stroke();
+
+    // Glow point at the end
+    const last = arr[arr.length-1];
+    const t = (last - lo)/Math.max(1e-6, hi - lo);
+    const x = pad + (n-1)*stepX;
+    const y = pad + (1 - t)*plotH;
+
+    const g = c.createRadialGradient(x,y,0,x,y,16);
+    g.addColorStop(0, color);
+    g.addColorStop(1, 'rgba(255,255,255,0)');
+    c.fillStyle = g;
+    c.beginPath(); c.arc(x,y,16,0,Math.PI*2); c.fill();
+    c.fillStyle = color;
+    c.beginPath(); c.arc(x,y,3.5,0,Math.PI*2); c.fill();
+  }
+
+  // Initial draw
+  drawLine(ctx.current,'current', getComputedStyle(document.documentElement).getPropertyValue('--current').trim());
+  drawLine(ctx.voltage,'voltage', getComputedStyle(document.documentElement).getPropertyValue('--voltage').trim());
+  drawLine(ctx.load,'load', getComputedStyle(document.documentElement).getPropertyValue('--load').trim());
+
+  function tick(){
+    const dC = updateOne('current');
+    const dV = updateOne('voltage');
+    const dL = updateOne('load');
+
+    el.currentVal.textContent = fmt(current);
+    el.voltageVal.textContent = fmt(voltage);
+    el.loadVal.textContent = fmt(load);
+
+    setTrend(el.currentTrend, dC);
+    setTrend(el.voltageTrend, dV);
+    setTrend(el.loadTrend, dL);
+
+    drawLine(ctx.current,'current', getComputedStyle(document.documentElement).getPropertyValue('--current').trim());
+    drawLine(ctx.voltage,'voltage', getComputedStyle(document.documentElement).getPropertyValue('--voltage').trim());
+    drawLine(ctx.load,'load', getComputedStyle(document.documentElement).getPropertyValue('--load').trim());
+  }
+
+  setInterval(tick, INTERVAL);
+})();
+</script>
+</body>
+</html>

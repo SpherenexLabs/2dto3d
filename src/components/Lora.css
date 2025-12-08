@@ -1,0 +1,33 @@
+.pressure-table-container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #f7f7f7;
+  box-shadow: 0 4px 16px #0001;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.pressure-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  background: #fff;
+}
+
+.pressure-table th,
+.pressure-table td {
+  border: 1px solid #222;
+  padding: 8px 10px;
+  text-align: center;
+}
+
+.pressure-table th {
+  background: #26ff27;
+  color: #000;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.pressure-table tr:nth-child(even) {
+  background: #f2f2f2;
+}

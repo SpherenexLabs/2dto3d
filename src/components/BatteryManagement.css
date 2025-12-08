@@ -1,0 +1,216 @@
+/* BatteryManagement.css */
+
+.dashboard {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard h1 {
+  color: white;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  font-weight: 300;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+}
+
+.status {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1.5rem;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  color: #333;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+  min-width: 300px;
+}
+
+.status strong {
+  color: #667eea;
+  font-size: 1.4rem;
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+.control-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1rem;
+  width: 300px;
+  height: 300px;
+  margin-bottom: 2rem;
+}
+
+.control-grid button {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.control-grid button:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  border-color: #667eea;
+}
+
+.control-grid button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid positioning for specific buttons */
+.control-grid button:nth-child(1) {
+  grid-column: 2;
+  grid-row: 1;
+  background: rgba(76, 175, 80, 0.9);
+  color: white;
+}
+
+.control-grid button:nth-child(1):hover {
+  background: rgba(76, 175, 80, 1);
+}
+
+.control-grid button:nth-child(2) {
+  grid-column: 1;
+  grid-row: 2;
+  background: rgba(33, 150, 243, 0.9);
+  color: white;
+}
+
+.control-grid button:nth-child(2):hover {
+  background: rgba(33, 150, 243, 1);
+}
+
+.control-grid button:nth-child(3) {
+  grid-column: 2;
+  grid-row: 2;
+  background: rgba(244, 67, 54, 0.9);
+  color: white;
+  font-weight: 700;
+}
+
+.control-grid button:nth-child(3):hover {
+  background: rgba(244, 67, 54, 1);
+}
+
+.control-grid button:nth-child(4) {
+  grid-column: 3;
+  grid-row: 2;
+  background: rgba(33, 150, 243, 0.9);
+  color: white;
+}
+
+.control-grid button:nth-child(4):hover {
+  background: rgba(33, 150, 243, 1);
+}
+
+.control-grid button:nth-child(5) {
+  grid-column: 2;
+  grid-row: 3;
+  background: rgba(255, 152, 0, 0.9);
+  color: white;
+}
+
+.control-grid button:nth-child(5):hover {
+  background: rgba(255, 152, 0, 1);
+}
+
+.message {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  color: #333;
+  font-weight: 500;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: slideIn 0.3s ease-out;
+  text-align: center;
+  max-width: 300px;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 1rem;
+  }
+  
+  .dashboard h1 {
+    font-size: 2rem;
+  }
+  
+  .control-grid {
+    width: 250px;
+    height: 250px;
+    gap: 0.8rem;
+  }
+  
+  .control-grid button {
+    font-size: 0.9rem;
+  }
+  
+  .status {
+    min-width: 250px;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard h1 {
+    font-size: 1.8rem;
+  }
+  
+  .control-grid {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .control-grid button {
+    font-size: 0.8rem;
+  }
+  
+  .status {
+    min-width: 200px;
+  }
+}
