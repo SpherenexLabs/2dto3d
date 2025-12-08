@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 import TemplateSelector from './TemplateSelector';
+import { config } from '../config/api';
 import './ImageUpload.css';
 
 const ImageUpload = ({ onTemplateMatch }) => {
@@ -133,7 +134,7 @@ const ImageUpload = ({ onTemplateMatch }) => {
     formData.append('use_analysis', 'true'); // Enable rule-based analysis
 
     try {
-      const response = await axios.post('http://localhost:5000/api/upload', formData, {
+      const response = await axios.post(config.endpoints.upload, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -200,7 +201,7 @@ const ImageUpload = ({ onTemplateMatch }) => {
       formData.append('template_id', templateId);
       formData.append('use_analysis', 'false'); // Use template matching
 
-      const response = await axios.post('http://localhost:5000/api/upload', formData, {
+      const response = await axios.post(config.endpoints.upload, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
