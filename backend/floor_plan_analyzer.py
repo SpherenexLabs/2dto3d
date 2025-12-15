@@ -7,8 +7,8 @@ class FloorPlanAnalyzer:
     """Rule-based 2D floor plan to 3D scene converter"""
     
     def __init__(self):
-        self.wall_thickness = 0.2  # meters
-        self.default_wall_height = 2.8  # meters
+        self.wall_thickness = 0.3  # meters (increased for better visibility)
+        self.default_wall_height = 3.0  # meters (standard room height)
         self.default_door_width = 0.9  # meters
         self.default_window_width = 1.2  # meters
         
@@ -158,118 +158,159 @@ class FloorPlanAnalyzer:
             'ceilings': [],
             'doors': [],
             'windows': [],
-            'rooms': rooms,
+            'rooms': [],
             'furniture': []
         }
-        
-        # Add walls to scene
-        for wall in walls:
-            scene['walls'].append({
-                'type': 'wall',
-                'start': wall['start'],
-                'end': wall['end'],
-                'height': wall['height'],
-                'thickness': wall['thickness'],
-                'material': 'drywall'
-            })
-        
-        # For each room, create a complete space with walls, floor, ceiling
-        for room in rooms:
-            room_width = room['width']
-            room_depth = room['depth']
-            room_center = room['center']
-            
-            # Add floor
+
+        # Determine fallback room metrics from contour detection (largest room)
+        fallback_center = rooms[0]['center'] if rooms else [0, 0, 0]
+        fallback_width = max(rooms[0]['width'], 4) if rooms else 10
+        fallback_depth = max(rooms[0]['depth'], 4) if rooms else 10
+
+        # Helper to add rectangular boundary walls/floor/ceiling
+        def add_rectangular_room(center, width, depth, material='wood', include_surfaces=True):
+            cx, _, cz = center
+            half_w = width / 2
+            half_d = depth / 2
+
+            if include_surfaces:
+                scene['floors'].append({
+                    'type': 'floor',
+                    'position': [cx, 0, cz],
+                    'width': width,
+                    'depth': depth,
+                    'material': material
+                })
+
+                scene['ceilings'].append({
+                    'type': 'ceiling',
+                    'position': [cx, self.default_wall_height, cz],
+                    'width': width,
+                    'depth': depth
+                })
+
+            # Perimeter walls
+            scene['walls'].extend([
+                {
+                    'type': 'wall',
+                    'start': [cx - half_w, 0, cz - half_d],
+                    'end': [cx + half_w, 0, cz - half_d],
+                    'height': self.default_wall_height,
+                    'thickness': self.wall_thickness,
+                    'material': 'drywall'
+                },
+                {
+                    'type': 'wall',
+                    'start': [cx - half_w, 0, cz + half_d],
+                    'end': [cx + half_w, 0, cz + half_d],
+                    'height': self.default_wall_height,
+                    'thickness': self.wall_thickness,
+                    'material': 'drywall'
+                },
+                {
+                    'type': 'wall',
+                    'start': [cx + half_w, 0, cz - half_d],
+                    'end': [cx + half_w, 0, cz + half_d],
+                    'height': self.default_wall_height,
+                    'thickness': self.wall_thickness,
+                    'material': 'drywall'
+                },
+                {
+                    'type': 'wall',
+                    'start': [cx - half_w, 0, cz - half_d],
+                    'end': [cx - half_w, 0, cz + half_d],
+                    'height': self.default_wall_height,
+                    'thickness': self.wall_thickness,
+                    'material': 'drywall'
+                }
+            ])
+
+        # Use detected walls if available
+        if walls:
+            all_x = []
+            all_z = []
+            for wall in walls:
+                all_x.extend([wall['start'][0], wall['end'][0]])
+                all_z.extend([wall['start'][2], wall['end'][2]])
+                scene['walls'].append({
+                    'type': 'wall',
+                    'start': wall['start'],
+                    'end': wall['end'],
+                    'height': wall.get('height', self.default_wall_height),
+                    'thickness': wall.get('thickness', self.wall_thickness),
+                    'material': wall.get('material', 'drywall')
+                })
+
+            min_x, max_x = min(all_x), max(all_x)
+            min_z, max_z = min(all_z), max(all_z)
+            detected_width = max(max_x - min_x, 1)
+            detected_depth = max(max_z - min_z, 1)
+            detected_center = [(min_x + max_x) / 2, 0, (min_z + max_z) / 2]
+
+            floor_width = max(detected_width + 0.5, fallback_width)
+            floor_depth = max(detected_depth + 0.5, fallback_depth)
+            floor_center = detected_center if walls else fallback_center
+
+            # Floor & ceiling sized to detected bounds
             scene['floors'].append({
                 'type': 'floor',
-                'position': room_center,
-                'width': room_width,
-                'depth': room_depth,
-                'material': self._get_floor_material(room['type'])
+                'position': [floor_center[0], 0, floor_center[2]],
+                'width': floor_width,
+                'depth': floor_depth,
+                'material': self._get_floor_material(rooms[0]['type']) if rooms else 'wood'
             })
-            
-            # Add ceiling
+
             scene['ceilings'].append({
                 'type': 'ceiling',
-                'position': [room_center[0], self.default_wall_height, room_center[2]],
-                'width': room_width,
-                'depth': room_depth
+                'position': [floor_center[0], self.default_wall_height, floor_center[2]],
+                'width': floor_width,
+                'depth': floor_depth
             })
-            
-            # Add room boundary walls if not already present
-            half_w = room_width / 2
-            half_d = room_depth / 2
-            cx, cy, cz = room_center
-            
-            # North wall
-            scene['walls'].append({
-                'type': 'wall',
-                'start': [cx - half_w, 0, cz - half_d],
-                'end': [cx + half_w, 0, cz - half_d],
-                'height': self.default_wall_height,
-                'thickness': self.wall_thickness,
-                'material': 'drywall'
+
+            # Ensure we always have a closed shell
+            if len(scene['walls']) < 4:
+                add_rectangular_room(fallback_center, fallback_width, fallback_depth, include_surfaces=False)
+        else:
+            add_rectangular_room(fallback_center, fallback_width, fallback_depth)
+
+        # Determine room type
+        room_type = rooms[0]['type'] if rooms else 'living_room'
+
+        # Add door to first perimeter wall
+        if len(scene['walls']) > 0:
+            first_wall = scene['walls'][0]
+            door_x = (first_wall['start'][0] + first_wall['end'][0]) / 2
+            door_z = (first_wall['start'][2] + first_wall['end'][2]) / 2
+            scene['doors'].append({
+                'type': 'door',
+                'position': [door_x, 0, door_z],
+                'rotation': 0,
+                'width': self.default_door_width,
+                'height': 2.1
             })
-            
-            # South wall
-            scene['walls'].append({
-                'type': 'wall',
-                'start': [cx - half_w, 0, cz + half_d],
-                'end': [cx + half_w, 0, cz + half_d],
-                'height': self.default_wall_height,
-                'thickness': self.wall_thickness,
-                'material': 'drywall'
+
+        # Add window on second wall if available
+        if room_type != 'bathroom' and len(scene['walls']) > 1:
+            second_wall = scene['walls'][1]
+            win_x = (second_wall['start'][0] + second_wall['end'][0]) / 2
+            win_z = (second_wall['start'][2] + second_wall['end'][2]) / 2
+            scene['windows'].append({
+                'type': 'window',
+                'position': [win_x, 1.5, win_z],
+                'rotation': 0,
+                'width': 1.5,
+                'height': 1.2
             })
-            
-            # East wall
-            scene['walls'].append({
-                'type': 'wall',
-                'start': [cx + half_w, 0, cz - half_d],
-                'end': [cx + half_w, 0, cz + half_d],
-                'height': self.default_wall_height,
-                'thickness': self.wall_thickness,
-                'material': 'drywall'
-            })
-            
-            # West wall
-            scene['walls'].append({
-                'type': 'wall',
-                'start': [cx - half_w, 0, cz - half_d],
-                'end': [cx - half_w, 0, cz + half_d],
-                'height': self.default_wall_height,
-                'thickness': self.wall_thickness,
-                'material': 'drywall'
-            })
-            
-            # Add doors for room
-            num_doors = 1 if room['type'] == 'bathroom' else 1
-            for i in range(num_doors):
-                door_pos = [cx + half_w - 0.5, 0, cz]
-                scene['doors'].append({
-                    'type': 'door',
-                    'position': door_pos,
-                    'rotation': -np.pi / 2,
-                    'width': self.default_door_width,
-                    'height': 2.1
-                })
-            
-            # Add windows for room (except bathrooms)
-            if room['type'] != 'bathroom':
-                num_windows = 2 if room['area'] > 15 else 1
-                for i in range(num_windows):
-                    window_pos = [cx - half_w + 0.1, 1.5, cz + (i - 0.5) * room_depth * 0.4]
-                    scene['windows'].append({
-                        'type': 'window',
-                        'position': window_pos,
-                        'rotation': np.pi / 2,
-                        'width': 1.2,
-                        'height': 1.5
-                    })
-            
-            # Add furniture based on room type
-            furniture = self._generate_furniture_for_room(room)
-            scene['furniture'].extend(furniture)
-        
+
+        # Add furniture layout using overall room metrics
+        furniture_room = {
+            'type': room_type,
+            'center': fallback_center,
+            'width': fallback_width,
+            'depth': fallback_depth
+        }
+        scene['furniture'] = self._generate_furniture_for_room(furniture_room)
+
         return scene
     
     def _get_floor_material(self, room_type):
@@ -293,11 +334,12 @@ class FloorPlanAnalyzer:
         depth = room['depth']
         
         if room_type == 'living_room':
+            # Use fixed absolute positions for reliable spacing
             # Sofa against back wall
             furniture.append({
                 'type': 'sofa',
                 'component': 'ModernSofa',
-                'position': [center[0], 0, center[2] - depth * 0.35],
+                'position': [0, 0, -3],
                 'rotation': [0, 0, 0],
                 'scale': [1, 1, 1],
                 'color': '#4a5568'
@@ -307,26 +349,27 @@ class FloorPlanAnalyzer:
             furniture.append({
                 'type': 'table',
                 'component': 'DiningTable',
-                'position': [center[0], 0, center[2]],
+                'position': [0, 0, 0],
                 'rotation': [0, 0, 0],
                 'scale': [0.8, 0.8, 0.8],
                 'color': '#8B4513'
             })
             
-            # Armchairs on sides
+            # Armchair on left
             furniture.append({
                 'type': 'chair',
                 'component': 'ModernChair',
-                'position': [center[0] - width * 0.3, 0, center[2] + depth * 0.2],
+                'position': [-3, 0, 1],
                 'rotation': [0, np.pi / 4, 0],
                 'scale': [1.2, 1.2, 1.2],
                 'color': '#2d3748'
             })
             
+            # Armchair on right
             furniture.append({
                 'type': 'chair',
                 'component': 'ModernChair',
-                'position': [center[0] + width * 0.3, 0, center[2] + depth * 0.2],
+                'position': [3, 0, 1],
                 'rotation': [0, -np.pi / 4, 0],
                 'scale': [1.2, 1.2, 1.2],
                 'color': '#2d3748'
@@ -336,11 +379,11 @@ class FloorPlanAnalyzer:
             furniture.append({
                 'type': 'rug',
                 'component': 'AreaRug',
-                'position': [center[0], 0, center[2]],
+                'position': [0, 0, -0.5],
                 'rotation': [0, 0, 0],
                 'scale': [1, 1, 1],
-                'width': width * 0.6,
-                'depth': depth * 0.5,
+                'width': 4,
+                'depth': 3,
                 'color': '#8B0000'
             })
             
@@ -348,7 +391,7 @@ class FloorPlanAnalyzer:
             furniture.append({
                 'type': 'light',
                 'component': 'CeilingLight',
-                'position': [center[0], 2.6, center[2]],
+                'position': [0, 2.6, 0],
                 'rotation': [0, 0, 0],
                 'scale': [1, 1, 1],
                 'intensity': 2
@@ -359,36 +402,37 @@ class FloorPlanAnalyzer:
             furniture.append({
                 'type': 'bed',
                 'component': 'Bed',
-                'position': [center[0], 0, center[2] - depth * 0.3],
+                'position': [0, 0, -2.5],
                 'rotation': [0, 0, 0],
                 'scale': [1, 1, 1],
                 'color': '#f5f5dc'
             })
             
-            # Nightstands on both sides
+            # Left nightstand
             furniture.append({
                 'type': 'table',
                 'component': 'DiningTable',
-                'position': [center[0] - width * 0.35, 0, center[2] - depth * 0.3],
+                'position': [-2.5, 0, -2.5],
                 'rotation': [0, 0, 0],
                 'scale': [0.4, 0.6, 0.4],
                 'color': '#654321'
             })
             
+            # Right nightstand
             furniture.append({
                 'type': 'table',
                 'component': 'DiningTable',
-                'position': [center[0] + width * 0.35, 0, center[2] - depth * 0.3],
+                'position': [2.5, 0, -2.5],
                 'rotation': [0, 0, 0],
                 'scale': [0.4, 0.6, 0.4],
                 'color': '#654321'
             })
             
-            # Dresser
+            # Dresser on side wall
             furniture.append({
                 'type': 'table',
                 'component': 'DiningTable',
-                'position': [center[0] + width * 0.35, 0, center[2] + depth * 0.3],
+                'position': [3, 0, 2],
                 'rotation': [0, np.pi / 2, 0],
                 'scale': [0.6, 0.8, 0.8],
                 'color': '#654321'
@@ -398,17 +442,17 @@ class FloorPlanAnalyzer:
             furniture.append({
                 'type': 'chair',
                 'component': 'ModernChair',
-                'position': [center[0] - width * 0.3, 0, center[2] + depth * 0.2],
+                'position': [-3, 0, 2],
                 'rotation': [0, np.pi / 4, 0],
                 'scale': [1, 1, 1],
                 'color': '#8B4513'
             })
             
-            # Ceiling lights
+            # Ceiling light
             furniture.append({
                 'type': 'light',
                 'component': 'CeilingLight',
-                'position': [center[0], 2.6, center[2]],
+                'position': [0, 2.6, 0],
                 'rotation': [0, 0, 0],
                 'scale': [1, 1, 1],
                 'intensity': 1.5
@@ -418,58 +462,61 @@ class FloorPlanAnalyzer:
             furniture.append({
                 'type': 'rug',
                 'component': 'AreaRug',
-                'position': [center[0], 0, center[2] + depth * 0.1],
+                'position': [0, 0, 0.5],
                 'rotation': [0, 0, 0],
                 'scale': [1, 1, 1],
-                'width': width * 0.5,
-                'depth': depth * 0.4,
+                'width': 3,
+                'depth': 2.5,
                 'color': '#c8b8a0'
             })
             
         elif room_type == 'kitchen':
-            # Dining table
+            # Dining table at center
             furniture.append({
                 'type': 'table',
                 'component': 'DiningTable',
-                'position': [center[0], 0, center[2]],
+                'position': [0, 0, 0],
                 'rotation': [0, 0, 0],
                 'scale': [1, 1, 1],
                 'color': '#8B4513'
             })
             
-            # Dining chairs around table
+            # Chair on left
             furniture.append({
                 'type': 'chair',
                 'component': 'ModernChair',
-                'position': [center[0] - width * 0.2, 0, center[2] + depth * 0.15],
-                'rotation': [0, 0, 0],
-                'scale': [1, 1, 1],
-                'color': '#654321'
-            })
-            
-            furniture.append({
-                'type': 'chair',
-                'component': 'ModernChair',
-                'position': [center[0] + width * 0.2, 0, center[2] + depth * 0.15],
-                'rotation': [0, np.pi, 0],
-                'scale': [1, 1, 1],
-                'color': '#654321'
-            })
-            
-            furniture.append({
-                'type': 'chair',
-                'component': 'ModernChair',
-                'position': [center[0], 0, center[2] - depth * 0.15],
+                'position': [-2.5, 0, 0],
                 'rotation': [0, np.pi / 2, 0],
                 'scale': [1, 1, 1],
                 'color': '#654321'
             })
             
+            # Chair on right
             furniture.append({
                 'type': 'chair',
                 'component': 'ModernChair',
-                'position': [center[0], 0, center[2] + depth * 0.35],
+                'position': [2.5, 0, 0],
                 'rotation': [0, -np.pi / 2, 0],
+                'scale': [1, 1, 1],
+                'color': '#654321'
+            })
+            
+            # Chair at back
+            furniture.append({
+                'type': 'chair',
+                'component': 'ModernChair',
+                'position': [0, 0, -2.5],
+                'rotation': [0, 0, 0],
+                'scale': [1, 1, 1],
+                'color': '#654321'
+            })
+            
+            # Chair at front
+            furniture.append({
+                'type': 'chair',
+                'component': 'ModernChair',
+                'position': [0, 0, 2.5],
+                'rotation': [0, np.pi, 0],
                 'scale': [1, 1, 1],
                 'color': '#654321'
             })
@@ -489,7 +536,7 @@ class FloorPlanAnalyzer:
             furniture.append({
                 'type': 'light',
                 'component': 'CeilingLight',
-                'position': [center[0], 2.5, center[2]],
+                'position': [0, 2.5, 0],
                 'rotation': [0, 0, 0],
                 'scale': [0.7, 0.7, 0.7],
                 'intensity': 1.8

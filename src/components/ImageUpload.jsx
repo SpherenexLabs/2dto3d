@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { Upload, X, AlertCircle } from 'lucide-react';
 import axios from 'axios';
 import TemplateSelector from './TemplateSelector';
 import { config } from '../config/api';
@@ -31,6 +32,8 @@ const ImageUpload = ({ onTemplateMatch }) => {
           material: wall.material
         };
       });
+    } else {
+      console.warn('No walls found in scene!', scene);
     }
     
     // Add floors
@@ -242,27 +245,18 @@ const ImageUpload = ({ onTemplateMatch }) => {
         />
       )}
 
-      <h2>Upload 2D Layout</h2>
+      <div className="upload-header">
+        <h2>Upload 2D Layout</h2>
+        <p className="upload-subtitle">Transform your floor plan into an interactive 3D space</p>
+      </div>
       
       {!preview ? (
         <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''}`}>
           <input {...getInputProps()} />
           <div className="dropzone-content">
-            <svg 
-              className="upload-icon" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-              width="64"
-              height="64"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" 
-              />
-            </svg>
+            <div className="upload-icon">
+              <Upload size={48} strokeWidth={1.5} />
+            </div>
             {isDragActive ? (
               <p>Drop the image here...</p>
             ) : (

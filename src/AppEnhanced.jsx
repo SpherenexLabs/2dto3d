@@ -1,5 +1,8 @@
 import { useState } from 'react';
+import { Home, Save, RotateCcw } from 'lucide-react';
+import logo from './assets/newlogo2.png';
 import './App.css';
+import LandingPage from './components/LandingPage';
 import ImageUpload from './components/ImageUpload';
 import Scene3DEnhanced from './components/Scene3DEnhanced';
 import LoadingAnimation from './components/LoadingAnimation';
@@ -7,11 +10,16 @@ import InventoryPanelEnhanced from './components/InventoryPanelEnhanced';
 import SaveSceneDialog from './components/SaveSceneDialog';
 
 function App() {
+  const [showLanding, setShowLanding] = useState(true);
   const [template, setTemplate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedObject, setSelectedObject] = useState(null);
   const [sceneObjects, setSceneObjects] = useState(null);
   const [showSaveDialog, setShowSaveDialog] = useState(false);
+
+  const handleGetStarted = () => {
+    setShowLanding(false);
+  };
 
   const handleTemplateMatch = (matchedTemplate) => {
     console.log('handleTemplateMatch called with:', matchedTemplate);
@@ -37,12 +45,15 @@ function App() {
 
     const updatedObjects = { ...sceneObjects };
 
-    // If object is selected, replace it
+    // If object is selected, replace it while preserving position, rotation, and scale
     if (selectedObject && updatedObjects[selectedObject]) {
+      const existingObject = updatedObjects[selectedObject];
       updatedObjects[selectedObject] = {
-        ...updatedObjects[selectedObject],
-        model: newItem.model || newItem.id
+        ...existingObject, // Keep all existing properties (position, rotation, scale, etc.)
+        model: newItem.model || newItem.id, // Only update the model
+        type: newItem.category ? newItem.category.replace(/s$/, '') : existingObject.type // Update type if provided
       };
+      console.log(`Replaced ${selectedObject} with ${newItem.name}, preserving structure:`, updatedObjects[selectedObject]);
       setSceneObjects(updatedObjects);
       setSelectedObject(null);
     } 
@@ -76,8 +87,11 @@ function App() {
       
       updatedObjects[newKey] = {
         position: [randomX, yPosition, randomZ],
+        rotation: [0, 0, 0],
+        scale: [1, 1, 1],
         model: newItem.model || newItem.id,
-        scale: 1 // Ensure scale is 1
+        type: category,
+        component: newItem.component || 'ModernChair' // Default component
       };
       
       setSceneObjects(updatedObjects);
@@ -120,30 +134,26 @@ function App() {
     setIsLoading(false);
   };
 
+  if (showLanding) {
+    return <LandingPage onGetStarted={handleGetStarted} />;
+  }
+
   return (
     <div className="app">
       <header className="app-header">
         <div className="header-content">
-          <div className="logo-section">
-            <div className="logo-icon">🏠</div>
-            <div className="logo-text">
-              <h1>2D to 3D Room Converter</h1>
-              <p className="tagline">Transform your floor plans into immersive 3D spaces</p>
-            </div>
+          <div className="logo-section" onClick={() => setShowLanding(true)} style={{ cursor: 'pointer' }}>
+            <img src={logo} alt="PlanNex3D" className="logo-image" />
           </div>
           {template && (
             <div className="header-actions">
               <button onClick={() => setShowSaveDialog(true)} className="header-btn save-btn">
-                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
-                </svg>
-                Save Scene
+                <Save size={18} />
+                <span>Save</span>
               </button>
               <button onClick={handleReset} className="header-btn reset-btn">
-                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                Reset
+                <RotateCcw size={18} />
+                <span>Reset</span>
               </button>
             </div>
           )}
@@ -200,12 +210,7 @@ function App() {
 
       <footer className="app-footer">
         <div className="footer-content">
-          <p>&copy; 2024 2D to 3D Room Converter. Powered by Three.js & GSAP</p>
-          <div className="footer-links">
-            <a href="#" className="footer-link">Documentation</a>
-            <a href="#" className="footer-link">Support</a>
-            <a href="#" className="footer-link">GitHub</a>
-          </div>
+          <p>&copy; 2025 PlanNex3D. All rights reserved.</p>
         </div>
       </footer>
     </div>

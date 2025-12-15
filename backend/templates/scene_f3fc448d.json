@@ -1,0 +1,1065 @@
+{
+  "scene_id": "f3fc448d",
+  "template_id": "rule_based_scene",
+  "template_name": "AI Generated Floor Plan",
+  "objects": {
+    "wall1": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -4.963636363636363,
+        0,
+        -3.109090909090909
+      ],
+      "end": [
+        4.672727272727273,
+        0,
+        -3.109090909090909
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall2": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        2.0545454545454542,
+        0,
+        -3.218181818181818
+      ],
+      "end": [
+        4.6,
+        0,
+        -3.218181818181818
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall3": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -2.9272727272727272,
+        0,
+        -2.2727272727272725
+      ],
+      "end": [
+        -0.9636363636363636,
+        0,
+        -2.2727272727272725
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall4": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -2.8909090909090907,
+        0,
+        -2.1999999999999997
+      ],
+      "end": [
+        -1,
+        0,
+        -2.1999999999999997
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall5": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -4.963636363636363,
+        0,
+        2.9272727272727272
+      ],
+      "end": [
+        -0.8181818181818181,
+        0,
+        2.9272727272727272
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall6": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -4.963636363636363,
+        0,
+        2.818181818181818
+      ],
+      "end": [
+        1.0363636363636364,
+        0,
+        2.818181818181818
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall7": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        4.5636363636363635,
+        0,
+        2.9272727272727272
+      ],
+      "end": [
+        4.5636363636363635,
+        0,
+        -3.0727272727272728
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall8": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -4.8545454545454545,
+        0,
+        2.7818181818181817
+      ],
+      "end": [
+        -4.8545454545454545,
+        0,
+        0.05454545454545454
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall9": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -1.6545454545454545,
+        0,
+        2.7818181818181817
+      ],
+      "end": [
+        -1.6545454545454545,
+        0,
+        -3.218181818181818
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall10": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        0.3090909090909091,
+        0,
+        -0.9272727272727272
+      ],
+      "end": [
+        0.3090909090909091,
+        0,
+        -3.218181818181818
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall11": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        4.672727272727273,
+        0,
+        2.9272727272727272
+      ],
+      "end": [
+        4.672727272727273,
+        0,
+        -0.23636363636363636
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall12": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -4.963636363636363,
+        0,
+        -0.4909090909090909
+      ],
+      "end": [
+        -4.963636363636363,
+        0,
+        -3.1818181818181817
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall13": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        0.4909090909090909,
+        0,
+        2.9272727272727272
+      ],
+      "end": [
+        0.4909090909090909,
+        0,
+        -0.23636363636363636
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall14": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        2.0545454545454542,
+        0,
+        -2.1999999999999997
+      ],
+      "end": [
+        4.672727272727273,
+        0,
+        -2.1999999999999997
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall15": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -1.509090909090909,
+        0,
+        0.7454545454545454
+      ],
+      "end": [
+        -1.509090909090909,
+        0,
+        -3.218181818181818
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall16": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -0.6363636363636364,
+        0,
+        -1.1090909090909091
+      ],
+      "end": [
+        3.2545454545454544,
+        0,
+        -1.1090909090909091
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall17": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        1.9818181818181817,
+        0,
+        -2.2727272727272725
+      ],
+      "end": [
+        4.672727272727273,
+        0,
+        -2.2727272727272725
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall18": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -1.4727272727272727,
+        0,
+        -0.05454545454545454
+      ],
+      "end": [
+        3.2909090909090906,
+        0,
+        -0.05454545454545454
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall19": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        0.2727272727272727,
+        0,
+        -0.19999999999999998
+      ],
+      "end": [
+        3.2545454545454544,
+        0,
+        -0.19999999999999998
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall20": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -5,
+        0,
+        -3.327272727272727
+      ],
+      "end": [
+        5,
+        0,
+        -3.327272727272727
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall21": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -5,
+        0,
+        3.327272727272727
+      ],
+      "end": [
+        5,
+        0,
+        3.327272727272727
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall22": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        5,
+        0,
+        -3.327272727272727
+      ],
+      "end": [
+        5,
+        0,
+        3.327272727272727
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall23": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -5,
+        0,
+        -3.327272727272727
+      ],
+      "end": [
+        -5,
+        0,
+        3.327272727272727
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall24": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -0.34545454545454524,
+        0,
+        -0.8545454545454545
+      ],
+      "end": [
+        4.927272727272728,
+        0,
+        -0.8545454545454545
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall25": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -0.34545454545454524,
+        0,
+        3.218181818181818
+      ],
+      "end": [
+        4.927272727272728,
+        0,
+        3.218181818181818
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall26": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        4.927272727272728,
+        0,
+        -0.8545454545454545
+      ],
+      "end": [
+        4.927272727272728,
+        0,
+        3.218181818181818
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall27": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -0.34545454545454524,
+        0,
+        -0.8545454545454545
+      ],
+      "end": [
+        -0.34545454545454524,
+        0,
+        3.218181818181818
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall28": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -5,
+        0,
+        -3.218181818181818
+      ],
+      "end": [
+        -0.27272727272727293,
+        0,
+        -3.218181818181818
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall29": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -5,
+        0,
+        3
+      ],
+      "end": [
+        -0.27272727272727293,
+        0,
+        3
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall30": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -0.27272727272727293,
+        0,
+        -3.218181818181818
+      ],
+      "end": [
+        -0.27272727272727293,
+        0,
+        3
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "wall31": {
+      "type": "wall",
+      "component": "Wall",
+      "start": [
+        -5,
+        0,
+        -3.218181818181818
+      ],
+      "end": [
+        -5,
+        0,
+        3
+      ],
+      "height": 2.8,
+      "thickness": 0.2,
+      "material": "drywall"
+    },
+    "floor1": {
+      "type": "floor",
+      "component": "Floor",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "width": 10,
+      "depth": 6.654545454545454,
+      "material": "wood"
+    },
+    "floor2": {
+      "type": "floor",
+      "component": "Floor",
+      "position": [
+        2.290909090909091,
+        0,
+        1.1818181818181817
+      ],
+      "width": 5.2727272727272725,
+      "depth": 4.072727272727272,
+      "material": "wood"
+    },
+    "floor3": {
+      "type": "floor",
+      "component": "Floor",
+      "position": [
+        -2.6363636363636362,
+        0,
+        -0.10909090909090909
+      ],
+      "width": 4.727272727272727,
+      "depth": 6.218181818181818,
+      "material": "wood"
+    },
+    "ceiling1": {
+      "type": "ceiling",
+      "component": "Ceiling",
+      "position": [
+        0,
+        2.8,
+        0
+      ],
+      "width": 10,
+      "depth": 6.654545454545454
+    },
+    "ceiling2": {
+      "type": "ceiling",
+      "component": "Ceiling",
+      "position": [
+        2.290909090909091,
+        2.8,
+        1.1818181818181817
+      ],
+      "width": 5.2727272727272725,
+      "depth": 4.072727272727272
+    },
+    "ceiling3": {
+      "type": "ceiling",
+      "component": "Ceiling",
+      "position": [
+        -2.6363636363636362,
+        2.8,
+        -0.10909090909090909
+      ],
+      "width": 4.727272727272727,
+      "depth": 6.218181818181818
+    },
+    "door1": {
+      "type": "door",
+      "component": "Door",
+      "position": [
+        4.5,
+        0,
+        0
+      ],
+      "rotation": -1.5707963267948966,
+      "width": 0.9,
+      "height": 2.1
+    },
+    "door2": {
+      "type": "door",
+      "component": "Door",
+      "position": [
+        4.427272727272728,
+        0,
+        1.1818181818181817
+      ],
+      "rotation": -1.5707963267948966,
+      "width": 0.9,
+      "height": 2.1
+    },
+    "door3": {
+      "type": "door",
+      "component": "Door",
+      "position": [
+        -0.7727272727272729,
+        0,
+        -0.10909090909090909
+      ],
+      "rotation": -1.5707963267948966,
+      "width": 0.9,
+      "height": 2.1
+    },
+    "window1": {
+      "type": "window",
+      "component": "Window",
+      "position": [
+        -4.9,
+        1.5,
+        -1.330909090909091
+      ],
+      "rotation": 1.5707963267948966,
+      "width": 1.2,
+      "height": 1.5
+    },
+    "window2": {
+      "type": "window",
+      "component": "Window",
+      "position": [
+        -4.9,
+        1.5,
+        1.330909090909091
+      ],
+      "rotation": 1.5707963267948966,
+      "width": 1.2,
+      "height": 1.5
+    },
+    "window3": {
+      "type": "window",
+      "component": "Window",
+      "position": [
+        -0.24545454545454523,
+        1.5,
+        0.3672727272727272
+      ],
+      "rotation": 1.5707963267948966,
+      "width": 1.2,
+      "height": 1.5
+    },
+    "window4": {
+      "type": "window",
+      "component": "Window",
+      "position": [
+        -0.24545454545454523,
+        1.5,
+        1.9963636363636361
+      ],
+      "rotation": 1.5707963267948966,
+      "width": 1.2,
+      "height": 1.5
+    },
+    "window5": {
+      "type": "window",
+      "component": "Window",
+      "position": [
+        -4.9,
+        1.5,
+        -1.3527272727272728
+      ],
+      "rotation": 1.5707963267948966,
+      "width": 1.2,
+      "height": 1.5
+    },
+    "window6": {
+      "type": "window",
+      "component": "Window",
+      "position": [
+        -4.9,
+        1.5,
+        1.1345454545454545
+      ],
+      "rotation": 1.5707963267948966,
+      "width": 1.2,
+      "height": 1.5
+    },
+    "sofa1": {
+      "type": "sofa",
+      "component": "ModernSofa",
+      "position": [
+        0,
+        0,
+        -2.3290909090909087
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "color": "#4a5568"
+    },
+    "table2": {
+      "type": "table",
+      "component": "DiningTable",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "color": "#8B4513"
+    },
+    "chair3": {
+      "type": "chair",
+      "component": "ModernChair",
+      "position": [
+        -3,
+        0,
+        1.330909090909091
+      ],
+      "rotation": [
+        0,
+        0.7853981633974483,
+        0
+      ],
+      "scale": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "color": "#2d3748"
+    },
+    "chair4": {
+      "type": "chair",
+      "component": "ModernChair",
+      "position": [
+        3,
+        0,
+        1.330909090909091
+      ],
+      "rotation": [
+        0,
+        -0.7853981633974483,
+        0
+      ],
+      "scale": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "color": "#2d3748"
+    },
+    "light6": {
+      "type": "light",
+      "component": "CeilingLight",
+      "position": [
+        0,
+        2.6,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "intensity": 2
+    },
+    "sofa7": {
+      "type": "sofa",
+      "component": "ModernSofa",
+      "position": [
+        2.290909090909091,
+        0,
+        -0.24363636363636365
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "color": "#4a5568"
+    },
+    "table8": {
+      "type": "table",
+      "component": "DiningTable",
+      "position": [
+        2.290909090909091,
+        0,
+        1.1818181818181817
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "color": "#8B4513"
+    },
+    "chair9": {
+      "type": "chair",
+      "component": "ModernChair",
+      "position": [
+        0.7090909090909092,
+        0,
+        1.9963636363636361
+      ],
+      "rotation": [
+        0,
+        0.7853981633974483,
+        0
+      ],
+      "scale": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "color": "#2d3748"
+    },
+    "chair10": {
+      "type": "chair",
+      "component": "ModernChair",
+      "position": [
+        3.872727272727273,
+        0,
+        1.9963636363636361
+      ],
+      "rotation": [
+        0,
+        -0.7853981633974483,
+        0
+      ],
+      "scale": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "color": "#2d3748"
+    },
+    "rug11": {
+      "type": "rug",
+      "component": "AreaRug",
+      "position": [
+        2.290909090909091,
+        0,
+        1.1818181818181817
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "color": "#8B0000",
+      "width": 3.1636363636363636,
+      "depth": 2.036363636363636
+    },
+    "light12": {
+      "type": "light",
+      "component": "CeilingLight",
+      "position": [
+        2.290909090909091,
+        2.6,
+        1.1818181818181817
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "intensity": 2
+    },
+    "sofa13": {
+      "type": "sofa",
+      "component": "ModernSofa",
+      "position": [
+        -2.6363636363636362,
+        0,
+        -2.285454545454545
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "color": "#4a5568"
+    },
+    "table14": {
+      "type": "table",
+      "component": "DiningTable",
+      "position": [
+        -2.6363636363636362,
+        0,
+        -0.10909090909090909
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "color": "#8B4513"
+    },
+    "chair15": {
+      "type": "chair",
+      "component": "ModernChair",
+      "position": [
+        -4.054545454545455,
+        0,
+        1.1345454545454545
+      ],
+      "rotation": [
+        0,
+        0.7853981633974483,
+        0
+      ],
+      "scale": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "color": "#2d3748"
+    },
+    "chair16": {
+      "type": "chair",
+      "component": "ModernChair",
+      "position": [
+        -1.2181818181818183,
+        0,
+        1.1345454545454545
+      ],
+      "rotation": [
+        0,
+        -0.7853981633974483,
+        0
+      ],
+      "scale": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "color": "#2d3748"
+    },
+    "rug17": {
+      "type": "rug",
+      "component": "AreaRug",
+      "position": [
+        -2.6363636363636362,
+        0,
+        -0.10909090909090909
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "color": "#8B0000",
+      "width": 2.836363636363636,
+      "depth": 3.109090909090909
+    },
+    "light18": {
+      "type": "light",
+      "component": "CeilingLight",
+      "position": [
+        -2.6363636363636362,
+        2.6,
+        -0.10909090909090909
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "intensity": 2
+    }
+  },
+  "camera": {},
+  "lighting": {},
+  "metadata": {
+    "created_at": "2025-12-08T20:46:58.232603",
+    "updated_at": "2025-12-08T20:46:58.233117",
+    "version": "1.0",
+    "description": "",
+    "tags": []
+  },
+  "share_url": "/scene/f3fc448d"
+}

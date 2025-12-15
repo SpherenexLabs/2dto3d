@@ -414,8 +414,8 @@ function SceneContent({ objects, onObjectClick, selectedObject, onMoveObject }) 
           key={key}
           start={obj.start}
           end={obj.end}
-          height={obj.height || 2.8}
-          thickness={obj.thickness || 0.2}
+          height={obj.height || 3.0}
+          thickness={obj.thickness || 0.3}
           material={obj.material || 'drywall'}
         />
       );

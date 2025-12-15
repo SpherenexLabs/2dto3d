@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 
 // Wall component with thickness and proper materials
-export function Wall({ start, end, height = 2.8, thickness = 0.2, material = 'concrete' }) {
+export function Wall({ start, end, height = 3.0, thickness = 0.3, material = 'concrete' }) {
   const wallRef = useRef();
   
   // Calculate wall dimensions and position
@@ -16,20 +16,20 @@ export function Wall({ start, end, height = 2.8, thickness = 0.2, material = 'co
   const centerZ = (start[2] + end[2]) / 2;
   
   const materialProps = {
-    concrete: { color: '#f5f5f5', roughness: 0.8, metalness: 0.1 },
+    concrete: { color: '#e8e8e8', roughness: 0.8, metalness: 0.1 },
     brick: { color: '#c9a27c', roughness: 0.9, metalness: 0 },
-    drywall: { color: '#ffffff', roughness: 0.7, metalness: 0 }
+    drywall: { color: '#f0f0f0', roughness: 0.6, metalness: 0 }
   };
   
-  const props = materialProps[material] || materialProps.concrete;
+  const props = materialProps[material] || materialProps.drywall;
   
   useEffect(() => {
     if (wallRef.current) {
       gsap.from(wallRef.current.scale, {
         y: 0,
-        duration: 0.6,
+        duration: 0.8,
         ease: 'power2.out',
-        delay: Math.random() * 0.3
+        delay: Math.random() * 0.2
       });
     }
   }, []);
@@ -43,7 +43,10 @@ export function Wall({ start, end, height = 2.8, thickness = 0.2, material = 'co
       receiveShadow
     >
       <boxGeometry args={[length, height, thickness]} />
-      <meshStandardMaterial {...props} />
+      <meshStandardMaterial 
+        {...props} 
+        side={THREE.DoubleSide}
+      />
     </mesh>
   );
 }

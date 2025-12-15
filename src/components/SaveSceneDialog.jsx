@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { config } from '../config/api';
 import './SaveSceneDialog.css';
 
 const SaveSceneDialog = ({ isOpen, onClose, sceneData, onSaveSuccess }) => {
@@ -27,7 +28,7 @@ const SaveSceneDialog = ({ isOpen, onClose, sceneData, onSaveSuccess }) => {
         tags: tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0)
       };
 
-      const response = await axios.post('http://localhost:5000/api/scene/save', savePayload);
+      const response = await axios.post(`${config.apiUrl}/api/scene/save`, savePayload);
       
       setSavedScene(response.data);
       
@@ -46,7 +47,6 @@ const SaveSceneDialog = ({ isOpen, onClose, sceneData, onSaveSuccess }) => {
     if (savedScene?.share_url) {
       navigator.clipboard.writeText(savedScene.share_url);
       
-      // Show copied notification
       const btn = document.querySelector('.copy-link-btn');
       if (btn) {
         btn.textContent = '✓ Copied!';
