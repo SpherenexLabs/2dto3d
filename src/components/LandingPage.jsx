@@ -198,7 +198,7 @@ const LandingPage = ({ onGetStarted }) => {
       </section>
 
       {/* Features Section */}
-      {/* <section className="features" id="features">
+      <section className="features" id="features">
         <div className="container">
           <div className="section-header">
             <h2>Powerful Features</h2>
@@ -216,10 +216,10 @@ const LandingPage = ({ onGetStarted }) => {
             ))}
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* How It Works Section */}
-      {/* <section className="how-it-works" id="how-it-works">
+       <section className="how-it-works" id="how-it-works">
         <div className="container">
           <div className="section-header">
             <h2>How It Works</h2>
@@ -240,10 +240,10 @@ const LandingPage = ({ onGetStarted }) => {
             ))}
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* Gallery Section */}
-      {/* <section className="gallery" id="gallery">
+      <section className="gallery" id="gallery">
         <div className="container">
           <div className="section-header">
             <h2>Gallery</h2>
@@ -263,10 +263,10 @@ const LandingPage = ({ onGetStarted }) => {
             ))}
           </div>
         </div>
-      </section> */}
+      </section> 
 
       {/* Testimonials Section */}
-      {/* <section className="testimonials" id="testimonials">
+      <section className="testimonials" id="testimonials">
         <div className="container">
           <div className="section-header">
             <h2>What Our Users Say</h2>
@@ -292,7 +292,7 @@ const LandingPage = ({ onGetStarted }) => {
             ))}
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* Contact Us Section */}
       {/* <section className="contact-section" id="contact">
@@ -342,7 +342,7 @@ const LandingPage = ({ onGetStarted }) => {
       </section> */}
 
       {/* CTA Section */}
-      {/* <section className="cta-section">
+      <section className="cta-section">
         <div className="container">
           <div className="cta-content">
             <h2>Ready to Transform Your Floor Plans?</h2>
@@ -365,17 +365,17 @@ const LandingPage = ({ onGetStarted }) => {
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* Footer */}
-      {/* <footer className="footer">
+      <footer className="footer">
         <div className="container">
           <div className="footer-divider"></div>
           <div className="footer-bottom">
             <p>&copy; 2025 PlanNex3D. All rights reserved.</p>
           </div>
         </div>
-      </footer> */}
+      </footer>
 
       {/* <footer className="footer">
         <div className="container">
@@ -435,4 +435,5 @@ const LandingPage = ({ onGetStarted }) => {
 };
 
 export default LandingPage;
+
 
