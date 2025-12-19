@@ -352,7 +352,7 @@ const LandingPage = ({ onGetStarted }) => {
               <ChevronRight size={20} />
             </button>
             
-            <div className="other-products">
+            {/* <div className="other-products">
               <h3>Explore Our Other Products</h3>
               <div className="product-links">
                 <a href="https://www.spherenex.com/" target="_blank" rel="noopener noreferrer" className="product-link">
@@ -362,7 +362,7 @@ const LandingPage = ({ onGetStarted }) => {
                   ProcartIndia
                 </a>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
@@ -435,5 +435,6 @@ const LandingPage = ({ onGetStarted }) => {
 };
 
 export default LandingPage;
+
 
 
